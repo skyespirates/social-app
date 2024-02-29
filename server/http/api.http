@@ -6,7 +6,7 @@ POST {{baseURL}}/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "dev1@email.com",
+    "email": "dev3@email.com",
     "password": "1234",
     "role": "dev"
 }
@@ -16,7 +16,7 @@ POST {{baseURL}}/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "dev1@email.com",
+    "email": "dev3@email.com",
     "password": "1234"
 }
 

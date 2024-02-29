@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import api from "../utils/api";
 
-const Login = () => {
+const Register = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +14,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email) {
-      api("/users/login", {
+      api("/users/register", {
         method: "post",
         data: {
           email,
@@ -34,7 +34,7 @@ const Login = () => {
   return (
     <Flex justify="center">
       <Box w={320} my={200}>
-        <Text mb={24}>Login Page</Text>
+        <Text mb={24}>Register Page</Text>
         <form onSubmit={handleSubmit}>
           <Flex direction="column" rowGap="md">
             <Input
@@ -49,8 +49,8 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit">Login</Button>
-            <Link to="/register">register</Link>
+            <Button type="submit">Register</Button>
+            <Link to="/login">login</Link>
           </Flex>
         </form>
       </Box>
@@ -58,4 +58,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

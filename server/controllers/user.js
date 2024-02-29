@@ -4,7 +4,7 @@ const registerUser = async (req, res) => {
   try {
     const { email, password, role } = req.body;
     const user = await User.register(new User({ email, role }), password);
-    res.status(201).json(user);
+    res.status(201).json({ _id: user._id, email: user.email, role: user.role });
   } catch (error) {
     console.log(error);
     res.status(500).json("Internal Server Error");

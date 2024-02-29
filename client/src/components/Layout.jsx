@@ -1,25 +1,19 @@
-import { AppShell, Burger, Group, Skeleton, Button, Text } from "@mantine/core";
+import { AppShell, Burger, Group, Button, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../slices/userSlice";
-import { useEffect } from "react";
+
+import { Suspense } from "react";
+import Loading from "./Loading";
+
+import links from "../utils/links";
 
 const Layout = () => {
   const [opened, { toggle }] = useDisclosure();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
-
-  // make unaccessible to not login user
-  // user must login to access protected route
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (!user) {
-      navigate("/login");
-    }
-  }, []);
-
+  const user = useSelector((state) => state.email);
   const handleClick = () => {
     dispatch(logout());
     localStorage.removeItem("user");
@@ -40,18 +34,20 @@ const Layout = () => {
       </AppShell.Header>
       <AppShell.Navbar p="md">
         Navbar
-        {Array(4)
-          .fill(0)
-          .map((_, index) => (
-            <Skeleton key={index} h={28} mt="sm" animate={false} />
-          ))}
-        <Text my={24}>{user.email}</Text>
+        {links.map((link) => (
+          <Link key={link.title} to={link.to}>
+            {link.title}
+          </Link>
+        ))}
+        <Text my={24}>{user}</Text>
         <Button onClick={handleClick} color="red">
           Logout
         </Button>
       </AppShell.Navbar>
       <AppShell.Main>
-        <Outlet />
+        <Suspense fallback={<Loading />}>
+          <Outlet />
+        </Suspense>
       </AppShell.Main>
     </AppShell>
   );
