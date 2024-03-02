@@ -46,8 +46,8 @@ POST {{baseURL}}/posts HTTP/1.1
 Content-Type: application/json
 
 {
-    "content": "hello world by staff",
-    "created_by": "pkydh07q9yjn"
+    "content": "post-1",
+    "created_by": "4y0c8jov46em"
 }
 
 ### get all posts
@@ -73,3 +73,36 @@ GET {{baseURL}}/comments HTTP/1.1
 
 ### get comment by id
 GET {{baseURL}}/comments/d9wlniwr4qws HTTP/1.1
+
+
+
+### upload excel
+POST {{baseURL}}/uploads/excel HTTP/1.1
+# Content-Type: multipart/form-data
+
+# {
+    
+# }
+
+### upload pdf
+POST {{baseURL}}/uploads/pdf HTTP/1.1
+Content-Type: multipart/form-data
+
+{
+    
+}
+
+### upload image
+POST {{baseURL}}/uploads/image HTTP/1.1
+Content-Type: multipart/form-data
+
+{
+    
+}
+
+### get Ticket
+GET {{baseURL}}/uploads/tickets/65e2c7f7ea95e2b395031052 HTTP/1.1
+
+
+### get Ticket
+GET {{baseURL}}/uploads/tickets/user/hsr5ol6dgwet HTTP/1.1

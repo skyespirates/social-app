@@ -1,4 +1,5 @@
 import Post from "../models/post.js";
+import Comment from "../models/comment.js";
 
 const createPost = async (req, res) => {
   try {
@@ -12,7 +13,9 @@ const createPost = async (req, res) => {
 };
 const getPosts = async (req, res) => {
   try {
-    const posts = await Post.find({}).populate("created_by", "email");
+    const posts = await Post.find({})
+      .sort({ createdAt: -1 })
+      .populate("created_by", "email");
     res.status(200).json(posts);
   } catch (error) {
     console.log(error);
@@ -34,8 +37,26 @@ const getPost = async (req, res) => {
   }
 };
 
+const deletePost = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const userId = req.body.userId;
+
+    const post = await Post.findByIdAndDelete(postId);
+    const comment = await Comment.deleteMany({
+      created_by: userId,
+    });
+    res.status(200).json("Post deleted successfully");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json("Internal Server Error");
+    process.exit(1);
+  }
+};
+
 export default {
   createPost,
   getPosts,
   getPost,
+  deletePost,
 };

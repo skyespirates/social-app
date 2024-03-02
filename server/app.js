@@ -4,15 +4,18 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import passport from "passport";
 import User from "./models/User.js";
+import multer from "multer";
 
 // routes
 import users from "./routes/user.js";
 import posts from "./routes/post.js";
 import comments from "./routes/comment.js";
+import uploads from "./routes/upload.js";
 
 dotenv.config();
 
 const app = express();
+const upload = multer({ dest: "uploads/" });
 
 app.use(express.json());
 app.use(cors());
@@ -25,6 +28,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use("/api/users", users);
 app.use("/api/posts", posts);
 app.use("/api/comments", comments);
+app.use("/api/uploads", upload.single("file"), uploads);
 
 app.get("/", (req, res) => {
   res.send("hello world");

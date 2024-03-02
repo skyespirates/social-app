@@ -15,6 +15,10 @@ const links = [
     to: "/upload",
     title: "Upload",
   },
+  {
+    to: "/tickets",
+    title: "My Ticket",
+  },
 ];
 
 export default links;

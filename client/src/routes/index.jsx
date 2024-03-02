@@ -5,6 +5,9 @@ import Layout from "../components/Layout";
 import Dashboard from "../pages/Dashboard";
 import Profile from "../pages/Profile";
 import Posts from "../pages/Posts";
+import Upload from "../pages/Upload";
+import MyTicket from "../pages/MyTicket";
+import Ticket from "../pages/Ticket";
 
 // public routes
 import Register from "../pages/Register";
@@ -33,6 +36,18 @@ const router = createBrowserRouter([
       {
         path: "posts",
         element: <Posts />,
+      },
+      {
+        path: "upload",
+        element: <Upload />,
+      },
+      {
+        path: "tickets",
+        element: <MyTicket />,
+      },
+      {
+        path: "tickets/:ticketId",
+        element: <Ticket />,
       },
     ],
   },
