@@ -4,21 +4,12 @@ import { useDisclosure } from "@mantine/hooks";
 import Modal from "../components/Modal";
 import Post from "../components/Post";
 
-import api from "../utils/api";
-import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
 
 const Posts = () => {
   const [opened, { open, close }] = useDisclosure(false);
-  const [posts, setPosts] = useState([]);
-  useEffect(() => {
-    api("/posts", { method: "get" })
-      .then((res) => {
-        setPosts(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  const posts = useLoaderData();
+
   return (
     <Box>
       <Modal opened={opened} close={close} />

@@ -1,15 +1,10 @@
-import { useEffect, useState } from "react";
 import api from "../utils/api";
-import { useSelector } from "react-redux";
 import { Table, ActionIcon } from "@mantine/core";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { IconTrashFilled } from "@tabler/icons-react";
 
 const MyTicket = () => {
-  const userId = useSelector((state) => state._id);
-  const [body, setBody] = useState(null);
-  const navigate = useNavigate();
-
+  const data = useLoaderData();
   const handleDelete = (ticketId) => {
     api(`/uploads/tickets/${ticketId}`, {
       method: "delete",
@@ -24,32 +19,6 @@ const MyTicket = () => {
       });
   };
 
-  useEffect(() => {
-    api(`/uploads/tickets/user/${userId}`)
-      .then((res) => {
-        const temp = res.data.map((item) => (
-          <Table.Tr key={item._id}>
-            <Table.Td>
-              <Link to={`/tickets/${item._id}`}>{item._id}</Link>
-            </Table.Td>
-            <Table.Td>{item.activities?.length}</Table.Td>
-            <Table.Td>
-              <ActionIcon color="red" onClick={() => handleDelete(item._id)}>
-                <IconTrashFilled
-                  style={{ width: "70%", height: "70%" }}
-                  stroke={1.5}
-                />
-              </ActionIcon>
-            </Table.Td>
-          </Table.Tr>
-        ));
-        setBody(temp);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [userId]);
-
   return (
     <Table>
       <Table.Thead>
@@ -59,7 +28,25 @@ const MyTicket = () => {
           <Table.Th>Action</Table.Th>
         </Table.Tr>
       </Table.Thead>
-      <Table.Tbody>{body && body}</Table.Tbody>
+      <Table.Tbody>
+        {data &&
+          data.map((item) => (
+            <Table.Tr key={item._id}>
+              <Table.Td>
+                <Link to={`/tickets/${item._id}`}>{item._id}</Link>
+              </Table.Td>
+              <Table.Td>{item.activities?.length}</Table.Td>
+              <Table.Td>
+                <ActionIcon color="red" onClick={() => handleDelete(item._id)}>
+                  <IconTrashFilled
+                    style={{ width: "70%", height: "70%" }}
+                    stroke={1.5}
+                  />
+                </ActionIcon>
+              </Table.Td>
+            </Table.Tr>
+          ))}
+      </Table.Tbody>
     </Table>
   );
 };

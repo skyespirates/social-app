@@ -16,6 +16,10 @@ const links = [
     title: "Upload",
   },
   {
+    to: "/upload2",
+    title: "Upload2",
+  },
+  {
     to: "/tickets",
     title: "My Ticket",
   },
