@@ -83,7 +83,7 @@ const deleteTicket = async (req, res) => {
   try {
     const { ticketId } = req.params;
     await Ticket.findByIdAndDelete(ticketId);
-    await Activity.deleteMany({ ticket_id: ticketId });
+
     res.status(200).json("successfully deleted ticket and its activities");
   } catch (error) {
     console.log(error);

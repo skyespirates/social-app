@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import Dashboard from "../pages/Dashboard";
 import Profile from "../pages/Profile";
 import Posts from "../pages/Posts";
+import Post from "../pages/Post";
 import Upload from "../pages/Upload";
 import Upload2 from "../pages/Upload2";
 import MyTicket from "../pages/MyTicket";
@@ -18,7 +19,7 @@ import PublicRoute from "../components/PublicRoute";
 import NotFound from "../components/NotFound";
 import ErrorPage from "../pages/ErrorPage";
 
-import { postsLoader } from "../loaders/posts";
+import { postsLoader, postLoader, postAction } from "../loaders/posts";
 import { ticketsLoader, ticketLoader } from "../loaders/tickets";
 import { uploadAction } from "../loaders/upload";
 
@@ -43,6 +44,13 @@ const router = createBrowserRouter([
         path: "posts",
         loader: postsLoader,
         element: <Posts />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "posts/:postId",
+        loader: postLoader,
+        action: postAction,
+        element: <Post />,
         errorElement: <ErrorPage />,
       },
       {

@@ -1,10 +1,11 @@
 import api from "../utils/api";
 import { Table, ActionIcon } from "@mantine/core";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { IconTrashFilled } from "@tabler/icons-react";
 
 const MyTicket = () => {
   const data = useLoaderData();
+  const navigate = useNavigate();
   const handleDelete = (ticketId) => {
     api(`/uploads/tickets/${ticketId}`, {
       method: "delete",

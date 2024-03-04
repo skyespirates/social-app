@@ -1,12 +1,17 @@
-import Comment from "../models/comment.js";
-import Post from "../models/post.js";
+import Comment from "../models/Comment.js";
+import Post from "../models/Post.js";
 
 const createComment = async (req, res) => {
   try {
-    const comment = await Comment.create(req.body);
-    await Post.findByIdAndUpdate(req.body.post_id, {
-      $push: { comments: comment._id },
+    const { postId, userId, text } = req.body;
+    const comment = await Comment.create({
+      post_id: postId,
+      user_id: userId,
+      text,
     });
+    // await Post.findByIdAndUpdate(req.body.post_id, {
+    //   $push: { comments: comment._id },
+    // });
     res.status(201).json(comment);
   } catch (error) {
     console.log(error);

@@ -9,7 +9,11 @@ const commentSchema = new Schema(
     },
     post_id: {
       type: String,
-      required: true,
+      ref: "Post",
+    },
+    user_id: {
+      type: String,
+      ref: "User",
     },
     text: {
       type: String,
@@ -18,5 +22,10 @@ const commentSchema = new Schema(
   },
   { _id: false, timestamps: true }
 );
+
+commentSchema.post("save", async function (doc, next) {
+  console.log(data);
+  next();
+});
 
 export default model("Comment", commentSchema);
